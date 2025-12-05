@@ -1,66 +1,157 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 💬 ChatApp - Real-time Chat Application
 
-# Getting Started
+Aplikasi chat real-time yang dibangun dengan **React Native**, **Firebase Firestore**, dan **Firebase Authentication**. Aplikasi ini mendukung pengiriman pesan teks dan gambar dengan fitur login/register.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ Features
 
-## Step 1: Start Metro
+- 🔐 Authentication (Login & Register) dengan Firebase Auth
+- 💬 Real-time messaging dengan Firestore
+- 🖼️ Kirim gambar (base64)
+- 👤 Username management
+- 🔄 Auto-login
+- 📱 Offline chat history
+- 🚀 Optimized performance
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 📋 Prerequisites
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+Sebelum menjalankan project ini, pastikan Anda sudah install:
 
-```sh
-# Using npm
+- **Node.js** (v16 atau lebih baru)
+- **Java JDK 17** (untuk Android build)
+- **Android Studio** dengan:
+  - Android SDK
+  - Android Emulator
+  - Android SDK Platform 36
+  - Android Build Tools 36.0.0
+- **npm** atau **yarn**
+
+> **Note**: Pastikan environment variable `ANDROID_HOME` sudah di-set dengan benar.
+
+## 🚀 Installation & Setup
+
+### 1️⃣ Clone & Install Dependencies
+
+```bash
+# Clone repository (jika dari git)
+git clone <repository-url>
+cd ChatApp
+
+# Install dependencies
+npm install
+
+# Atau menggunakan yarn
+yarn install
+```
+
+### 2️⃣ Firebase Configuration
+
+Project ini sudah dikonfigurasi dengan Firebase. File konfigurasi ada di:
+- `firebase.ts` - Firebase Web SDK config
+- `android/app/google-services.json` - Android Firebase config
+
+> **Note**: Untuk production, sebaiknya ganti dengan Firebase project Anda sendiri.
+
+### 3️⃣ Setup Android Emulator
+
+#### **Buka Android Studio**
+1. Buka **Android Studio**
+2. Klik **More Actions** → **Virtual Device Manager** (atau **AVD Manager**)
+3. Klik **Create Virtual Device**
+4. Pilih device (recommended: **Pixel 5** atau **Pixel 7**)
+5. Pilih system image: **API Level 36** (Android 16) atau **API Level 34** (Android 14)
+6. Klik **Finish**
+
+#### **Start Emulator**
+Ada 2 cara untuk menjalankan emulator:
+
+**Cara 1: Via Android Studio**
+```bash
+# Buka AVD Manager di Android Studio
+# Klik tombol ▶️ (Play) di sebelah emulator yang ingin dijalankan
+```
+
+**Cara 2: Via Terminal**
+```bash
+# List semua AVD yang tersedia
+emulator -list-avds
+
+# Jalankan emulator (ganti 'Pixel_5_API_36' dengan nama AVD Anda)
+emulator -avd Pixel_5_API_36
+```
+
+#### **Verifikasi Emulator Berjalan**
+```bash
+# Cek device yang terhubung
+adb devices
+
+# Output seharusnya menampilkan emulator, contoh:
+# emulator-5554   device
+```
+
+## 📱 Running the App
+
+### **Metode 1: Menggunakan npx react-native (Recommended)**
+
+```bash
+# Terminal 1: Start Metro Bundler
+npm start
+# atau
+npx react-native start
+
+# Terminal 2: Run di Android Emulator
+npx react-native run-android
+```
+
+### **Metode 2: Build Manual dengan Gradle**
+
+```bash
+# Set Java 17 (macOS)
+export JAVA_HOME=$(/usr/libexec/java_home -v 17)
+
+# Build APK
+cd android
+./gradlew assembleDebug
+
+# Install ke emulator
+adb install app/build/outputs/apk/debug/app-debug.apk
+
+# Kembali ke root dan start Metro
+cd ..
+npm start
+```
+
+### **Metode 3: Via Android Studio**
+
+```bash
+# Start Metro dulu
 npm start
 
-# OR using Yarn
-yarn start
+# Kemudian buka Android Studio:
+# 1. Open Project → Pilih folder 'android'
+# 2. Klik Run ▶️ (hijau) di toolbar
+# 3. Pilih emulator yang sudah berjalan
 ```
 
-## Step 2: Build and run your app
+## 🎯 Using the App
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### **First Time Setup**
 
-### Android
+1. **Register Account**
+   - Buka app
+   - Klik "Belum punya akun? Register"
+   - Isi **Username**, **Email**, dan **Password**
+   - Klik **Register**
 
-```sh
-# Using npm
-npm run android
+2. **Login**
+   - Masukkan **Email** dan **Password**
+   - Klik **Login**
+   - App akan otomatis login di launch berikutnya
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
-```
-
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
-
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+3. **Chat Features**
+   - ✍️ Ketik pesan di input box
+   - 📤 Klik **Kirim** untuk mengirim pesan teks
+   - 🖼️ Klik tombol **Img** untuk kirim gambar
+   - 🚪 Klik **Logout** di header untuk keluar
 
 ## Step 3: Modify your app
 
@@ -82,16 +173,25 @@ You've successfully run and modified your React Native App. :partying_face:
 - If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
 - If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
 
-# Troubleshooting
+## 📚 Learn More
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+Untuk mempelajari lebih lanjut tentang teknologi yang digunakan:
 
-# Learn More
+- [React Native Documentation](https://reactnative.dev) - React Native docs
+- [Firebase Documentation](https://firebase.google.com/docs) - Firebase guides
+- [TypeScript Handbook](https://www.typescriptlang.org/docs/) - TypeScript docs
+- [React Navigation](https://reactnavigation.org/) - Navigation library
+- [Android Developer Guide](https://developer.android.com/) - Android development
 
-To learn more about React Native, take a look at the following resources:
+## 📞 Support
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+Jika mengalami masalah atau punya pertanyaan:
+- Baca bagian **Troubleshooting** di atas
+- Check [React Native Troubleshooting](https://reactnative.dev/docs/troubleshooting)
+- Create an issue di repository
+
+---
+
+**Happy Coding! 🚀**
+
+Made with ❤️ using React Native & Firebase
