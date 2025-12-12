@@ -23,7 +23,7 @@ import {
   User,
 } from "firebase/auth";
 
-// 🔹 Config Firebase (pakai punyamu yang ini)
+// Config Firebase (pakai punyamu yang ini)
 const firebaseConfig = {
   apiKey: "AIzaSyDK39DcGkymtnWVwRMlLthzJI32atvCBVU",
   authDomain: "chatapp-android-f6e8f.firebaseapp.com",
@@ -34,14 +34,14 @@ const firebaseConfig = {
   measurementId: "G-6JNCJ4S8BP",
 };
 
-// 🔹 Init app
+// Init app
 const app = initializeApp(firebaseConfig);
 
-// 🔹 Auth
+// Auth
 export const auth = getAuth(app);
 export const onAuthStateChangedFn = onAuthStateChanged;
 
-// 🔹 Firestore
+// Firestore
 export const db = getFirestore(app);
 
 // Koleksi chat messages (dengan tipe lebih rapi)

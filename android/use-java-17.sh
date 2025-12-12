@@ -5,6 +5,6 @@
 # Usage: source ./use-java-17.sh
 
 export JAVA_HOME=$(/usr/libexec/java_home -v 17)
-echo "✅ Java 17 activated for React Native"
+echo "Java 17 activated for React Native"
 echo "JAVA_HOME=$JAVA_HOME"
 java -version
